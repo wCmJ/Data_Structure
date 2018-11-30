@@ -1,4 +1,5 @@
 #pragma once
+#define NULL 0
 #define BST_INSERT_WITHCOMMAN
 
 template<typename T>
@@ -61,6 +62,45 @@ BST<T>* BST_Maximum(BST<T> *t) {
 	}
 	return t;
 }
+
+template<typename T>
+BST<T>* BST_Predecessor(BST<T> *t, T value) {
+	BST<T> *pNode = BST_Search(t, value);
+	if (pNode == NULL) {
+		return NULL;
+	}
+	if (pNode->left) {
+		return BST_Maximum(pNode->left);
+	}
+	while (pNode->p && pNode == pNode->p->left){
+		pNode = pNode->p;
+	}
+	return pNode->p;
+}
+
+
+
+
+template<typename T>
+BST<T>* BST_Successor(BST<T> *t, T value) {
+	BST<T> *pNode = BST_Search(t, value);
+	if (pNode == NULL) {
+		return NULL;
+	}
+	if (pNode->right) {
+		return BST_Minimum(pNode->right);
+	}
+	while (pNode->p && pNode == pNode->p->right) {
+		pNode = pNode->p;
+	}
+	return pNode->p;
+}
+
+
+
+
+
+
 
 template<typename T>
 void BST_Insert(BST<T> *t, T value) {
